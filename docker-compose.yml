@@ -1,0 +1,15 @@
+version: '3'
+services:
+
+    http:
+        build: .
+        image: shuntingyard/speedtest_http
+        restart: always
+        ports:
+          - "80:8050"
+        volumes:
+          - /data/data:/data
+          - /data/logs:/var/log
+        environment:
+          - TZ=Europe/Zurich
+          - SITENAME=Uplink green.ch

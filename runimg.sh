@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Run the container:
+
+# Note: variable TZ is used by many containers - and by our app.
+sudo docker run \
+    --restart always \
+    --publish 8050:8050 \
+    --volume /data:/data \
+    --volume /data/log:/var/log \
+    --env "TZ=Europe/Zurich" \
+    --env "SITENAME=Uplink green.ch" \
+    --tty --interactive \
+    shuntingyard/speedtest_http
+
+    # On CentOS 7:
+    #
+    # - logging to /data/log, which now has pol label svirt_sandbox_file_t .
+    #
+    # - SELinux net essentials - for listing objects e.g.
+    #
+    #       # semanage port -l | grep -w http_port_t
+    #   or
+    #       # sepolicy network -p 8001
+    #
+
+    #
+    # Using nginx as a reverse proxy with al little help from
+    #
+    #   https://www.sam.today/blog/stop-disabling-selinux:-a-real-world-guide/
+    #

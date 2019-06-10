@@ -1,0 +1,10 @@
+docker-compose.yaml
+Dockerfile
+.dockerignore
+experimental
+.git
+.gitignore
+README.md
+runapp.sh
+runimg.sh
+.venv
