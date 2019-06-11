@@ -2,8 +2,8 @@
 
 # set environment for app
 export TZ=Europe/Zurich
-export INFILE=/data/data/speedtest.csv
-export LOGDIR=/data/logs
+export INFILE=/data/speedtest.csV
+export LOGDIR=/data/log
 export SITENAME="Uplink green.ch"
 
 # set environment for flask

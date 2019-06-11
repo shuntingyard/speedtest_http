@@ -18,7 +18,7 @@ RUN \
 # Copy app files to /app directory (filtered by .dockerignore file).
 COPY . /app
 
-# Conveniently TZ is used by many containers - and our app uses it as well.
+# Timezone for app AND containers.
 ENV TZ UTC
 
 # Configure application environment.

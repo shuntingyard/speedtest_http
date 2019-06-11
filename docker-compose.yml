@@ -8,8 +8,9 @@ services:
         ports:
           - "80:8050"
         volumes:
-          - /data/data:/data
-          - /data/logs:/var/log
+          - /data:/data
+          - /data/log:/var/log
         environment:
+          - FLASK_DEBUG=1
           - TZ=Europe/Zurich
           - SITENAME=Uplink green.ch

@@ -2,7 +2,7 @@
 
 # Run the container:
 
-# Note: variable TZ is used by many containers - and by our app.
+# Except for UTC, TZ should always be set for app AND containers.
 sudo docker run \
     --restart always \
     --publish 8050:8050 \
