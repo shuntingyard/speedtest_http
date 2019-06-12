@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
-"""Parse csv file produced by 'speedtest-cli' into pandas data frame.
+"""Parse csv file produced by 'speedtest-cli' into pandas DataFrame.
 """
+import logging
+import time
 
 import matplotlib.dates as mdates
 import pandas as pd
@@ -19,12 +21,17 @@ def speedtest_read(filename, myzone=None, mpl_ts=False, agnostic=False):
             filename    csv, as produced by `speedtest-cli --csv`
             myzone      optional timezone to localize `Timestamp`
             mpl_ts      Add matplotlib-friendly timestamp (col. `mtimestamp`).
-            agnostic    Add timezone-agnostic timestamp (col. `agnostic_t`) -
-                        makes no sense without `myzone` set!
+            agnostic    Add timezone-agnostic timestamp (col. `agnostic_t`).
         Return:
             DataFrame
     """
+    _logger = logging.getLogger(__name__)
+
     with open(filename, "r") as infile:
+
+        s_pt = time.process_time()
+        s_pc = time.perf_counter()
+
         df = pd.read_csv(
             infile,
             engine="c",
@@ -46,9 +53,15 @@ def speedtest_read(filename, myzone=None, mpl_ts=False, agnostic=False):
         if mpl_ts:
             df["mtimestamp"] = [mdates.date2num(ts) for ts in df["Timestamp"]]
 
-        # Add timezone-agnostic timestamp
+        # Add timezone-agnostic timestamp.
         if agnostic:
             df["agnostic_t"] = [
                 ts.replace(tzinfo=None) for ts in df["Timestamp"]
             ]
+
+        e_pt = time.process_time()
+        e_pc = time.perf_counter()
+        _logger.debug(f"process_time (sec): {e_pt - s_pt}")
+        _logger.debug(f"perf_counter (sec): {e_pc - s_pc}")
+
         return df

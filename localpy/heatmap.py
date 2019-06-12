@@ -34,7 +34,7 @@ def layout(INFILE, TZ, SITENAME, shorthand=None):
     df["hour"] = [ts.strftime("%H:00") for ts in df["agnostic_t"]]
     df["date"] = [ts.strftime("%m-%d %a") for ts in df["agnostic_t"]]
 
-    # Then use panda's pivot table function.
+    # Then use pandas' pivot table function.
     corr = pd.pivot_table(
         df, index="hour", columns="date", values="Download", aggfunc=np.mean
     )

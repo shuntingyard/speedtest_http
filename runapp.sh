@@ -2,7 +2,7 @@
 
 # set environment for app
 export TZ=Europe/Zurich
-export INFILE=/data/speedtest.csV
+export INFILE=/data/speedtest.csv
 export LOGDIR=/data/log
 export SITENAME="Uplink green.ch"
 
