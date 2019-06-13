@@ -8,8 +8,9 @@ TODO improve (http status code) error handling from `dash` to `flask`!
 
 import logging
 import os
-import sys
-import traceback
+
+# import sys
+# import traceback
 
 import dash
 import dash_core_components as dcc
@@ -20,6 +21,9 @@ from dash.dependencies import Output
 from flask import Flask
 from flask import render_template
 from flask import request
+
+# system wide Reader
+from localpy.ng.reader import Reader
 
 # production plots
 from localpy import heatmap
@@ -38,6 +42,9 @@ TZ = os.environ["TZ"]
 LOGDIR = os.environ["LOGDIR"]
 SITENAME = os.environ["SITENAME"]
 
+# Define a reference to the data store.
+_ramdf = None
+
 
 def _setup_logging(loglevel):
     """Setup basic logging."""
@@ -49,8 +56,8 @@ def _setup_logging(loglevel):
     )
 
 
-def _announce():
-    """Set loglevel and log how we were started."""
+def _initialize():
+    """Log our start and load data store."""
     # Flask is not in debug mode or we are in the reloaded process.
     if not _srv.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 
@@ -60,21 +67,27 @@ def _announce():
                 print(f"{name:24s} {attributes}")
 
         msg = [
-            f"INFILE={INFILE}",
-            f"TZ={TZ}",
-            f"LOGDIR={LOGDIR}",
-            f"SITENAME={SITENAME}",
-            f"dash version: {dash.__version__}",
+            "STARTING UP",
+            f" INFILE={INFILE}",
+            f" TZ={TZ}",
+            f" LOGDIR={LOGDIR}",
+            f" SITENAME={SITENAME}",
+            f" dash version: {dash.__version__}",
+            "LOADING DATA STORE",
         ]
         for line in msg:
             _srv.logger.info(line)
             print(line)
 
+        # Set up in-memory data store (a pandas DataFrame).
+        global _ramdf
+        _ramdf = Reader(INFILE, myzone=TZ, agnostic=True)
+
 
 # Define the flask server.
 _srv = Flask(
     __name__,
-    # template_folder="../../templates/",
+    template_folder="../templates/",
 )
 
 # Configure the logger.
@@ -83,8 +96,8 @@ if _srv.debug:
 else:
     _setup_logging("INFO")
 
-# Log how we were started.
-_announce()
+# Run som things only once, even when reloading/ debugging.
+_initialize()
 
 
 @_srv.route("/")
@@ -107,14 +120,17 @@ def _http404_e(e):
     return render_template("404.html"), 404
 
 
-@_srv.errorhandler(Exception)
-def _general_e(e):
-    _, value, tb = sys.exc_info()
-    _srv.logger.error(value)
-    _srv.logger.error(f"TRACE: {traceback.print_tb(tb)}")
-    return render_template(
-        "exception.html", text=value, trace=traceback.print_tb(tb)
-    ), 500
+# @_srv.errorhandler(Exception)
+# def _general_e(e):
+#     _, value, tb = sys.exc_info()
+#     _srv.logger.error(value)
+#     _srv.logger.error(f"TRACE: {traceback.print_tb(tb)}")
+#     return (
+#         render_template(
+#             "exception.html", text=value, trace=traceback.print_tb(tb)
+#         ),
+#         500,
+#     )
 
 
 # Define the hosted dash app.
@@ -142,11 +158,11 @@ def _route(pathname):
     _srv.logger.debug(f"Serving route: {pathname}")
 
     if pathname == "/data/lineplot_today":
-        return lineplot.layout(INFILE, TZ, SITENAME, shorthand="from_midnight")
+        return lineplot.layout(_ramdf, TZ, SITENAME, shorthand="from_midnight")
     elif pathname == "/data/lineplot_last24hours":
-        return lineplot.layout(INFILE, TZ, SITENAME, shorthand="last24hours")
+        return lineplot.layout(_ramdf, TZ, SITENAME, shorthand="last24hours")
     elif pathname == "/data/heatmap_last30days":
-        return heatmap.layout(INFILE, TZ, SITENAME, shorthand="last30days")
+        return heatmap.layout(_ramdf, TZ, SITENAME, shorthand="last30days")
     elif pathname == "/data/walktz":
         return walktz.layout()
 

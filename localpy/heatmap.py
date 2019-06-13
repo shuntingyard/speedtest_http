@@ -20,13 +20,13 @@ __license__ = "gpl2"
 _logger = logging.getLogger(__name__)
 
 
-def layout(INFILE, TZ, SITENAME, shorthand=None):
+def layout(ramdf, TZ, SITENAME, shorthand=None):
     """Plot a heatmap TBD...TBD!
 
     Time-frames are configurable via shorthands (e.g. `last24hours`).
     Upon success a `dash` html div is returned to be rendered.
     """
-    df, _, _ = slicer.get_by_name(INFILE, name=shorthand, myzone=TZ)
+    df, _, _ = slicer.get_by_name(ramdf, name=shorthand, myzone=TZ)
 
     # Data preparation
 

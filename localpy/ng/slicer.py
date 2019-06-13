@@ -13,8 +13,6 @@ from datetime import datetime as dt
 from datetime import timedelta
 from pytz import timezone as tz
 
-from localpy.ng import reader
-
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
 __license__ = "gpl2"
@@ -67,11 +65,11 @@ def _agnostic_to_utc(time_in, localzone):
     return tz(localzone).localize(time_in).astimezone(tz("UTC"))
 
 
-def get_by_timestamps(infile, start=None, end=None, myzone="UTC"):
-    """Read infile into a DataFrame and return a time slice, defined by
-    start (timestamp) and end (timestamp).
+def get_by_timestamps(ramdf, start=None, end=None, myzone="UTC"):
+    """Get DataFrame and return a time slice, defined by start (timestamp)
+    and end (timestamp).
         Args:
-            infile      csv, as produced by `speedtest-cli --csv`
+            ramdf       handle to global data store
             start_time  timezone-agnostic start value
             end_time    timezone-agnostic end value
 
@@ -81,7 +79,7 @@ def get_by_timestamps(infile, start=None, end=None, myzone="UTC"):
         Return:
             DataFrame, start_timestamp (UTC), end_timestamp (UTC)
     """
-    df = reader.speedtest_read(infile, myzone=myzone, agnostic=True)
+    df = ramdf.get_df()
 
     if start:
         start = _agnostic_to_utc(start, myzone)
@@ -92,11 +90,11 @@ def get_by_timestamps(infile, start=None, end=None, myzone="UTC"):
     return _slice(df, start, end), start, end
 
 
-def get_by_name(infile, name=None, myzone="UTC"):
-    """Read infile into a DataFrame and return a time slice, defined by
-    a time-frame with an intuitive name.
+def get_by_name(ramdf, name=None, myzone="UTC"):
+    """Get DataFrame and return a time slice, defined by a time-frame
+    with an intuitive name.
         Args:
-            infile      csv, as produced by `speedtest-cli --csv`
+            ramdf       handle to global data store
             name        `last24hours`       | `last7days`    | `last30days`  |
                         `from_midnight`     | `from_sunday`  | `from_monday` |
                         `from_1st_of_month` | `from_jan_1st` | `all`
@@ -150,4 +148,4 @@ def get_by_name(infile, name=None, myzone="UTC"):
         # In all our cases so far end is `None` (i.e. the present).
         end = now
 
-        return get_by_timestamps(infile, start=start, end=end, myzone=myzone)
+        return get_by_timestamps(ramdf, start=start, end=end, myzone=myzone)
