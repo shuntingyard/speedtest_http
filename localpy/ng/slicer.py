@@ -26,8 +26,8 @@ def _slice(df, start, end):
     s_pt = time.process_time()
     s_pc = time.perf_counter()
 
-    _logger.debug(f"{start} is lower bound of slice")
-    _logger.debug(f"{end} is upper bound of slice")
+    # _logger.debug(f"{start} is lower bound of slice")
+    # _logger.debug(f"{end} is upper bound of slice")
 
     mask = df.set_index("Timestamp")
 
@@ -47,8 +47,8 @@ def _slice(df, start, end):
         else:
             df = mask
 
-    _logger.debug(f"{df.index.min()} is min index in DataFrame")
-    _logger.debug(f"{df.index.max()} is max index in DataFrame")
+    # _logger.debug(f"{df.index.min()} is min index in DataFrame")
+    # _logger.debug(f"{df.index.max()} is max index in DataFrame")
 
     e_pt = time.process_time()
     e_pc = time.perf_counter()

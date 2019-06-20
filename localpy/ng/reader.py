@@ -40,9 +40,9 @@ class Reader:
         self._ramdf = pd.DataFrame()
         # Load with input data as we don't want the first client to be
         # punished by lazy mode.
+        self._status = "INIT"
         self._ramdf = self.get_df()
-
-        print(f"Hello World from {__name__}!")
+        self._status = "READ"
 
     def get_df(self):
         """To be done.
@@ -61,15 +61,16 @@ class Reader:
             engine="c",
             usecols=["Timestamp", "Download", "Upload"],
             converters={
-                "Timestamp": lambda t: pd.to_datetime(t, utc=True),
-                "Download": lambda d: float(d) / (1000000),
-                "Upload": lambda u: float(u) / (1000000),
+                "Timestamp": lambda t: pd.to_datetime(t),
+                "Download": lambda d: float(d) / (10 ** 6),
+                "Upload": lambda u: float(u) / (10 ** 6),
             },
         ):
             # Localize `Timestamp`.
             if self._myzone:
                 chunk["Timestamp"] = [
-                    ts.astimezone(tz(self._myzone)) for ts in chunk["Timestamp"]
+                    ts.astimezone(tz(self._myzone))
+                    for ts in chunk["Timestamp"]
                 ]
 
             # Add matplotlib-friendly timestamp.
@@ -88,18 +89,15 @@ class Reader:
             # Append to DataFrame in memory
             self._ramdf = self._ramdf.append(chunk)
 
-            # show some for debugging
-            if len_before > 0:
-                print(chunk)
-
         # end of read loop
         e_pt = time.process_time()
         e_pc = time.perf_counter()
         self._logger.debug(f"process_time (sec): {e_pt - s_pt}")
         self._logger.debug(f"perf_counter (sec): {e_pc - s_pc}")
 
-        self._logger.info(
-            "DataFrame totals {} and grew by {}".format(
+        self._logger.debug(
+            "after {} df totals {} and grew by {}".format(
+                self._status,
                 len(self._ramdf.index),
                 len(self._ramdf.index) - len_before,
             )

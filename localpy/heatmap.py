@@ -39,6 +39,17 @@ def layout(ramdf, TZ, SITENAME, shorthand=None):
         df, index="hour", columns="date", values="Download", aggfunc=np.mean
     )
 
+    # customize details
+    hovertext = []
+    for hour in corr.values.tolist():
+        hovertext.append([])
+        for hval in hour:
+            hovertext[-1].append(
+                "{}".format("no values at this time")
+                if pd.isna(hval)
+                else f"DL speed: {round(hval, 2)} Mbit/s"
+            )
+
     return html.Div(
         # className="col-lg-10",
         dcc.Graph(
@@ -49,18 +60,14 @@ def layout(ramdf, TZ, SITENAME, shorthand=None):
                         x=corr.columns,
                         y=corr.index,
                         z=corr.values,
+                        text=hovertext,
+                        hoverinfo=("text"),
                     )
                 ],
                 "layout": go.Layout(
                     title=f"Download avg (Mbit/s) for {SITENAME}",
-                    xaxis=dict(
-                        title=shorthand,
-                        showgrid=False
-                    ),
-                    yaxis=dict(
-                        showgrid=False,
-                        tick0=0,
-                    ),
+                    xaxis=dict(title=shorthand, showgrid=False),
+                    yaxis=dict(showgrid=False, tick0=0),
                 ),
             },
             animate=False,
