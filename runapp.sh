@@ -7,6 +7,6 @@ export LOGDIR=/data/log
 export SITENAME="Uplink green.ch"
 
 # set environment for flask
-export FLASK_APP=localpy/server.py
+export FLASK_APP=src.orig/speedtest_http/server.py
 export FLASK_DEBUG=1
 python -m flask run -h 0.0.0.0 -p 8050

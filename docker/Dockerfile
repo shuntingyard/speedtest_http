@@ -27,7 +27,7 @@ ENV LOGDIR /var/log
 ENV SITENAME <Your Sitename here>
 
 # Configure Flask environment.
-ENV FLASK_APP localpy/server.py
+ENV FLASK_APP localpkg/server.py
 ENV FLASK_DEBUG 1
 
 # Run the app when the container launches.

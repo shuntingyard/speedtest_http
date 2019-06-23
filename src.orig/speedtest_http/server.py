@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
-""" A module to be launched as Flask app - spins up the things necessary
+"""
+A module to be launched as Flask app - spins up the things necessary
 to serve plots over http.
 
 TODO improve (http status code) error handling from `dash` to `flask`!
@@ -15,6 +15,7 @@ import os
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import speedtest_reader
 
 from dash.dependencies import Input
 from dash.dependencies import Output
@@ -22,28 +23,19 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-# system wide Reader
-from localpy.ng.reader import Reader
-
 # production plots
-from localpy import heatmap
-from localpy import lineplot
-
-# lab plots
-from localpy import walktz
+from speedtest_http import heatmap
+from speedtest_http import lineplot
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
-__license__ = "gpl2"
+__license__ = "mit"
 
 # Get environment settings.
 INFILE = os.environ["INFILE"]
 TZ = os.environ["TZ"]
 LOGDIR = os.environ["LOGDIR"]
 SITENAME = os.environ["SITENAME"]
-
-# Define a reference to the data store.
-_ramdf = None
 
 
 def _setup_logging(loglevel):
@@ -68,6 +60,7 @@ def _initialize():
 
         msg = [
             "STARTING UP",
+            f" speedtest_reader: {speedtest_reader.__version__}",
             f" INFILE={INFILE}",
             f" TZ={TZ}",
             f" LOGDIR={LOGDIR}",
@@ -78,10 +71,6 @@ def _initialize():
         for line in msg:
             _srv.logger.info(line)
             print(line)
-
-        # Set up in-memory data store (a pandas DataFrame).
-        global _ramdf
-        _ramdf = Reader(INFILE, myzone=TZ, agnostic=True)
 
 
 # Define the flask server.
@@ -158,13 +147,11 @@ def _route(pathname):
     _srv.logger.debug(f"Serving route: {pathname}")
 
     if pathname == "/data/lineplot_today":
-        return lineplot.layout(_ramdf, TZ, SITENAME, shorthand="from_midnight")
+        return lineplot.layout(INFILE, TZ, SITENAME, mnemonic="from_midnight")
     elif pathname == "/data/lineplot_last24hours":
-        return lineplot.layout(_ramdf, TZ, SITENAME, shorthand="last24hours")
+        return lineplot.layout(INFILE, TZ, SITENAME, start="24 hours ago")
     elif pathname == "/data/heatmap_last30days":
-        return heatmap.layout(_ramdf, TZ, SITENAME, shorthand="last30days")
-    elif pathname == "/data/walktz":
-        return walktz.layout()
+        return heatmap.layout(INFILE, TZ, SITENAME, start="30 days ago")
 
     else:
         if pathname:

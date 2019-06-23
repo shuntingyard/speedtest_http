@@ -11,28 +11,35 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objs as go
 
-from localpy.ng import slicer
+from speedtest_reader import read_by_ts
+from speedtest_reader import reader
+
+# decorate
+read_by_ts = reader.bit_to_Mbit(read_by_ts)
+read_by_ts = (reader.append_tslocal())(read_by_ts)
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
-__license__ = "gpl2"
+__license__ = "mit"
 
 _logger = logging.getLogger(__name__)
 
 
-def layout(ramdf, TZ, SITENAME, shorthand=None):
+def layout(INFILE, TZ, SITENAME, start=None, end=None):
     """Plot a heatmap TBD...TBD!
 
     Time-frames are configurable via shorthands (e.g. `last24hours`).
     Upon success a `dash` html div is returned to be rendered.
     """
-    df, _, _ = slicer.get_by_name(ramdf, name=shorthand, myzone=TZ)
+    df = read_by_ts(INFILE, start=start)
 
     # Data preparation
 
     # First add hour and date columns.
-    df["hour"] = [ts.strftime("%H:00") for ts in df["agnostic_t"]]
-    df["date"] = [ts.strftime("%m-%d %a") for ts in df["agnostic_t"]]
+    df["hour"] = [ts.strftime("%H:00") for ts in df["tslocal"]]
+    df["date"] = [ts.strftime("%m-%d %a") for ts in df["tslocal"]]
+    # FIXME these are now back to the UTC bug. So we need decorators
+    #      (agnostic-t) in the near future.
 
     # Then use pandas' pivot table function.
     corr = pd.pivot_table(
@@ -66,7 +73,7 @@ def layout(ramdf, TZ, SITENAME, shorthand=None):
                 ],
                 "layout": go.Layout(
                     title=f"Download avg (Mbit/s) for {SITENAME}",
-                    xaxis=dict(title=shorthand, showgrid=False),
+                    xaxis=dict(title=start, showgrid=False),
                     yaxis=dict(showgrid=False, tick0=0),
                 ),
             },
