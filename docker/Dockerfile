@@ -31,4 +31,5 @@ ENV FLASK_APP localpkg/server.py
 ENV FLASK_DEBUG 1
 
 # Run the app when the container launches.
-CMD ["python", "-m", "flask", "run", "-h", "0.0.0.0", "-p", "8050"]
+CMD ["python", "-m", "flask", "run", "-h", "0.0.0.0"]
+# , "-p", "8050"]

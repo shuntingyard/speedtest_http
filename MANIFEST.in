@@ -1,0 +1,2 @@
+recursive-include src/speedtest_http/templates *
+recursive-include src/speedtest_http/static *
