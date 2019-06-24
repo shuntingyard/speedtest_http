@@ -2,24 +2,27 @@
 #
 all: run
 
-.PHONY: clean venv run test sdist
+.PHONY: clean pull run test sdist
 
 clean:
-	rm -rf src/*.egg-info && rm -rf dist && rm -rf *.log*
-	@find . -name __pycache__ -exec rm -rf {} \;
+	rm -rf venv
+	rm -rf src/*.egg-info && rm -rf build rm -rf dist && rm -rf *.log*
 
 venv:
-	venv/bin/python setup.py develop
+	python -m venv venv
 
-run: venv
-	TZ=Europe/Zurich \
-	INFILE=/data/speedtest.csv \
-	LOGDIR=. \
-	SITENAME="Test uplink" \
-	FLASK_APP=speedtest_http FLASK_DEBUG=1 venv/bin/flask run
+pull: venv
+	venv/bin/python setup.py install
 
-test: venv
-	venv/bin/python -m unittest discover -s tests
+run: pull
+	@TZ=Europe/Zurich \
+		INFILE=/data/speedtest.csv \
+		LOGDIR=. \
+		SITENAME="Test uplink" \
+		FLASK_APP=speedtest_http FLASK_DEBUG=1 venv/bin/flask run
 
-sdist: venv test
+test: pull
+	venv/bin/python setup.py test
+
+sdist: test
 	venv/bin/python setup.py sdist

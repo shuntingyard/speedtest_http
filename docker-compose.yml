@@ -6,7 +6,7 @@ services:
         image: shuntingyard/speedtest_http
         restart: always
         ports:
-          - "80:8050"
+          - "80:5000"
         volumes:
           - /data:/data
           - /data/log:/var/log

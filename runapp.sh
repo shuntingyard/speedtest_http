@@ -6,9 +6,6 @@ export INFILE=/data/speedtest.csv
 export LOGDIR=/data/log
 export SITENAME="Uplink green.ch"
 
-# TODO see, if we keep that:
-export SPEEDTEST_HTTP_SETTINGS=/dev/null
-
 # set environment for flask
 export FLASK_APP=speedtest_http
 export FLASK_DEBUG=0

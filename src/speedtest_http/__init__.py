@@ -56,21 +56,33 @@ if srv.debug:
     sh.setLevel(logging.DEBUG)
     sh.setFormatter(logging.Formatter(FMT_CONSOLE))
     srv.logger.addHandler(sh)
+
+    # TODO make this configurable.
+    l2 = logging.getLogger("speedtest_reader.reader")
+    l2.setLevel(logging.DEBUG)
+    l2.addHandler(sh)
 else:
     fh = TimedRotatingFileHandler(
         os.path.join(LOGDIR, "speedtest_http.log"), "midnight"
     )
     fh.setLevel(logging.INFO)
     fh.setFormatter(logging.Formatter(FMT_LOGFILE))
+    srv.logger.setLevel(logging.INFO)  # set to WARNING by default
     srv.logger.addHandler(fh)
+
+    # TODO make this configurable.
+    l2 = logging.getLogger("speedtest_reader.reader")
+    l2.setLevel(logging.INFO)
+    l2.addHandler(fh)
 
 # Say how we were started - but only once, hence this condition:
 if not srv.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 
     # For now list all loggers to stdout when debugging.
-    if srv.debug:
-        for name, attributes in logging.root.manager.loggerDict.items():
-            print(f"{name:24s} {attributes}")
+    if True:  # srv.debug:
+        for name, obj in logging.root.manager.loggerDict.items():
+            if isinstance(obj, logging.Logger):
+                print(f"{name:36s} {obj}")
 
     msg = [
         "STARTING UP",

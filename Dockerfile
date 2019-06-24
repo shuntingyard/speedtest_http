@@ -1,14 +1,15 @@
-FROM python:3.7-slim
+FROM python:3.7
 MAINTAINER Tobias Frei (shuntingyard@gmail.com)
 
 # Set /app as working directory.
-WORKDIR /app
+# WORKDIR /app
 
 # Copy requirements to /app directory.
-COPY requirements.txt /app
+# COPY requirements.txt /app
 
 # Install required packages.
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+# RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install --trusted-host pypi.python.org speedtest-http==0.0.2
 
 # Create directories for data access and logging.
 RUN \

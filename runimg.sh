@@ -5,7 +5,7 @@
 # Except for UTC, TZ should always be set for app AND containers.
 sudo docker run \
     --restart always \
-    --publish 8050:8050 \
+    --publish 80:5000 \
     --volume /data:/data \
     --volume /data/log:/var/log \
     --env "TZ=Europe/Zurich" \
