@@ -1,10 +1,4 @@
 docker-compose.yml
 Dockerfile
 .dockerignore
-experimental
-.git
-.gitignore
-README.md
-runapp.sh
 runimg.sh
-.venv

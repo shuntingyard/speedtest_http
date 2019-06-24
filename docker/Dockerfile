@@ -8,15 +8,13 @@ WORKDIR /app
 COPY requirements.txt /app
 
 # Install required packages.
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+# RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Create directories for data access and logging.
 RUN \
     mkdir /data \
     mkdir -p /var/log
-
-# Copy app files to /app directory (filtered by .dockerignore file).
-COPY . /app
 
 # Timezone for app AND containers.
 ENV TZ UTC
@@ -27,8 +25,8 @@ ENV LOGDIR /var/log
 ENV SITENAME <Your Sitename here>
 
 # Configure Flask environment.
-ENV FLASK_APP localpkg/server.py
-ENV FLASK_DEBUG 1
+ENV FLASK_APP speedtest_http
+ENV FLASK_DEBUG 0
 
 # Run the app when the container launches.
 CMD ["python", "-m", "flask", "run", "-h", "0.0.0.0"]
