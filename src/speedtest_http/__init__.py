@@ -32,7 +32,6 @@ finally:
 
 # app is called srv in view of the dash infrastructure we still serve
 srv = Flask(__name__)
-srv.config.from_object('speedtest_http.default_settings')
 
 # env or last-resort defaults
 INFILE = os.environ.get("INFILE", "./speedtest.csv")
@@ -41,6 +40,7 @@ LOGDIR = os.environ.get("LOGDIR", ".")
 SITENAME = os.environ.get("SITENAME", None)
 
 # to be imported late, after flask app initialization
+from speedtest_http import dash_views
 from speedtest_http import views
 
 # logging settings
@@ -82,4 +82,4 @@ if not srv.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
         f" SITENAME          {SITENAME}",
     ]
     for line in msg:
-        srv.logger.warn(line)
+        srv.logger.info(line)
