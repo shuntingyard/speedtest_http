@@ -16,5 +16,8 @@
 # scipy==1.0
 
 flask
-dash
+# We're pinning dash in order to facilitate container integration: no gcc
+# required.
+dash==0.43.0
+# plotly
 speedtest_reader

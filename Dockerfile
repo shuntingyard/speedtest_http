@@ -8,8 +8,7 @@ WORKDIR /app
 COPY requirements.txt /app
 
 # Install required packages.
-# RUN pip install --trusted-host pypi.python.org -r requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
 # Create directories for data access and logging.
 RUN \
