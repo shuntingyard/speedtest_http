@@ -19,7 +19,7 @@ run: pull
 		INFILE=/data/speedtest.csv \
 		LOGDIR=. \
 		SITENAME="Test uplink" \
-		FLASK_APP=speedtest_http FLASK_DEBUG=1 venv/bin/flask run
+		FLASK_APP=speedtest_http FLASK_DEBUG=1 venv/bin/flask run -h 0.0.0.0
 
 test: pull
 	venv/bin/python setup.py test

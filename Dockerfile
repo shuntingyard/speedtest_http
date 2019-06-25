@@ -9,7 +9,7 @@ MAINTAINER Tobias Frei (shuntingyard@gmail.com)
 
 # Install required packages.
 # RUN pip install --trusted-host pypi.python.org -r requirements.txt
-RUN pip install --trusted-host pypi.python.org speedtest-http==0.0.2
+RUN pip install --trusted-host pypi.python.org speedtest-http==0.0.2b
 
 # Create directories for data access and logging.
 RUN \

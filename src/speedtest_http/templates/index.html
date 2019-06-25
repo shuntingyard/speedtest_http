@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Index</title>
-        <link rel="icon" type="image/x-icon" href="/data/_favicon.ico">
-        <link rel="stylesheet" href="https://codepen.io/chriddyp/pen/bWLwgP.css">
-    </head>
-    <body>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
+    <link rel="icon" type="image/x-icon" href="/data/_favicon.ico">
+    <link rel="stylesheet" href="https://codepen.io/chriddyp/pen/bWLwgP.css">
+</head>
+<body>
+    <div>
         <div>
+            <h3>{{ sitename }} at a glance</h3>
+            <ul>
+                <li><a href="/data/lineplot_today">Line plot</a> - today</li>
+            </ul>
+        </div>
+        <div>
+            <h5>More details</h5>
+            <ul>
+                <li><a href="/data/lineplot_last24hours">Line plot</a> - last 24 hours</li>
+                <li><a href="/data/heatmap_last30days">Heatmap</a> - last 30 days</li>
+            </ul>
+        </div>
+        <div>
+            <h5>Advanced</h5>
+            <ul>
+                <p>nothing to be seen so far...</p>
+            </ul>
+        </div>
+        <div>
+            <h5>Site info</h5>
             <div>
-                <h3>{{ sitename }} at a glance</h3>
-                <ul>
-                    <li><a href="/data/lineplot_today">Line plot</a> - today</li>
-                </ul>
+                <p>TODO: display ipinfo.io json here.</p>
             </div>
             <div>
-                <h5>More details</h5>
-                <ul>
-                    <li><a href="/data/lineplot_last24hours">Line plot</a> - last 24 hours</li>
-                    <li><a href="/data/heatmap_last30days">Heatmap</a> - last 30 days</li>
-                </ul>
-            </div>
-            <div>
-                <h5>Advanced</h5>
-                <ul>
-                    <p>nothing to be seen so far...</p>
-                </ul>
-            </div>
-            <div>
-                <h5>Site info</h5>
-                <div>
-                    <p>TODO: display ipinfo.io json here.</p>
-                </div>
+                <p>Version: {{ version }}, License: MIT, Copyright (c) 2019 Tobias Frei</p>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
