@@ -16,6 +16,5 @@
 # scipy==1.0
 
 flask
-dash
-# plotly
+plotly
 speedtest_reader

@@ -30,8 +30,8 @@ except DistributionNotFound:
 finally:
     del get_distribution, DistributionNotFound
 
-# app is called srv in view of the dash infrastructure we still serve
-srv = Flask(__name__)
+# Flask init 
+app = Flask(__name__)
 
 # env or last-resort defaults
 INFILE = os.environ.get("INFILE", "./speedtest.csv")
@@ -40,7 +40,6 @@ LOGDIR = os.environ.get("LOGDIR", ".")
 SITENAME = os.environ.get("SITENAME", None)
 
 # to be imported late, after flask app initialization
-from speedtest_http import dash_views
 from speedtest_http import views
 
 # logging settings
@@ -48,14 +47,14 @@ FMT_LOGFILE = "[%(asctime)s] %(levelname)s: %(name)s: %(message)s"
 FMT_CONSOLE = "[%(asctime)s] %(message)s"
 
 # remove it when logging is initialized after the flask app
-srv.logger.removeHandler(default_handler)
+app.logger.removeHandler(default_handler)
 
-if srv.debug:
+if app.debug:
     # add streaming handler
     sh = logging.StreamHandler(sys.stdout)
     sh.setLevel(logging.DEBUG)
     sh.setFormatter(logging.Formatter(FMT_CONSOLE))
-    srv.logger.addHandler(sh)
+    app.logger.addHandler(sh)
 
     # TODO make this configurable.
     l2 = logging.getLogger("speedtest_reader.reader")
@@ -67,8 +66,8 @@ else:
     )
     fh.setLevel(logging.INFO)
     fh.setFormatter(logging.Formatter(FMT_LOGFILE))
-    srv.logger.setLevel(logging.INFO)  # set to WARNING by default
-    srv.logger.addHandler(fh)
+    app.logger.setLevel(logging.INFO)  # set to WARNING by default
+    app.logger.addHandler(fh)
 
     # TODO make this configurable.
     l2 = logging.getLogger("speedtest_reader.reader")
@@ -76,10 +75,10 @@ else:
     l2.addHandler(fh)
 
 # Say how we were started - but only once, hence this condition:
-if not srv.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 
     # For now list all loggers to stdout when debugging.
-    if True:  # srv.debug:
+    if True:  # app.debug:
         for name, obj in logging.root.manager.loggerDict.items():
             if isinstance(obj, logging.Logger):
                 print(f"{name:36s} {obj}")
@@ -94,4 +93,4 @@ if not srv.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
         f" SITENAME          {SITENAME}",
     ]
     for line in msg:
-        srv.logger.info(line)
+        app.logger.info(line)

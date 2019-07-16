@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
-"""Please see function `layout`.
+"""
+To be done
 """
 
+import json
 import logging
 
-import dash_core_components as dcc
-import dash_html_components as html
 import numpy as np
 import pandas as pd
+import plotly
 import plotly.graph_objs as go
 
 from speedtest_reader import read_by_ts
@@ -25,11 +26,11 @@ __license__ = "mit"
 _logger = logging.getLogger(__name__)
 
 
-def layout(INFILE, TZ, SITENAME, start=None, end=None):
+def plot(INFILE, TZ, SITENAME, start=None, end=None):
     """Plot a heatmap TBD...TBD!
 
     Time-frames are configurable via shorthands (e.g. `last24hours`).
-    Upon success a `dash` html div is returned to be rendered.
+    Upon success a plotly-JSON-encoded graph is returned.
     """
     df = read_by_ts(INFILE, start=start)
 
@@ -46,7 +47,7 @@ def layout(INFILE, TZ, SITENAME, start=None, end=None):
         df, index="hour", columns="date", values="Download", aggfunc=np.mean
     )
 
-    # customize details
+    # customize hovertext for heat spots
     hovertext = []
     for hour in corr.values.tolist():
         hovertext.append([])
@@ -57,28 +58,24 @@ def layout(INFILE, TZ, SITENAME, start=None, end=None):
                 else f"DL speed: {round(hval, 2)} Mbit/s"
             )
 
-    return html.Div(
-        # className="col-lg-10",
-        dcc.Graph(
-            id="fig1",
-            figure={
-                "data": [
-                    go.Heatmap(
-                        x=corr.columns,
-                        y=corr.index,
-                        z=corr.values,
-                        text=hovertext,
-                        hoverinfo=("text"),
-                    )
-                ],
-                "layout": go.Layout(
-                    title=f"Download avg (Mbit/s) for {SITENAME}",
-                    xaxis=dict(title=start, showgrid=False),
-                    yaxis=dict(showgrid=False, tick0=0),
-                ),
-            },
-            animate=False,
-            style={"height": "85vh", "width": "95vw"},
+    graph = dict(
+        data=[
+            go.Heatmap(
+                x=corr.columns,
+                y=corr.index,
+                z=corr.values,
+                text=hovertext,
+                hoverinfo=("text"),
+            )
+        ],
+        # TODO Graph width/ height: plotly only accepts px values so far,
+        #      so set these with care and watch out for API improvements.
+        layout=go.Layout(
+            title=f"Download avg (Mbit/s) for {SITENAME}",
+            xaxis=dict(title=start, showgrid=False, automargin=True),
+            yaxis=dict(showgrid=False, tick0=0),
+            height=600
         ),
-        style={"padding-top": "15px"},
     )
+
+    return json.dumps(graph, cls=plotly.utils.PlotlyJSONEncoder)

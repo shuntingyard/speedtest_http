@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-    <title>-- chart --</title>
+    <title>-- Gitau --</title>
 </head>
 <body>
+    <div class="col-xs-3">
+        <label> Choose the plot type....</label>
+        <select class="form-control" id ='first_cat'>
+            <option value="Bar">Bar</option>
+            <option value="Scatter">Scatter</option>
+        </select>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -21,5 +28,8 @@
             </div>
         </div>
     </div>
+    <!-- for the AJAX part -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{{ url_for("static", filename="selectplot.js") }}"></script>
 </body>
 </html>

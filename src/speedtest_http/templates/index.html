@@ -7,33 +7,41 @@
     <title>Index</title>
     <link rel="icon" type="image/x-icon" href="/data/_favicon.ico">
     <link rel="stylesheet" href="https://codepen.io/chriddyp/pen/bWLwgP.css">
+    <style>
+    .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    }
+    </style>
 </head>
 <body>
     <div>
         <div>
-            <h3>{{ sitename }} at a glance</h3>
+            <h3>Speedtest - {{ sitename }}</h3>
             <ul>
-                <li><a href="/data/lineplot_today">Line plot</a> - today</li>
+                <li><a href="/lineplot_today">Line plot</a> - today</li>
             </ul>
         </div>
         <div>
             <h5>More details</h5>
             <ul>
-                <li><a href="/data/lineplot_last24hours">Line plot</a> - last 24 hours</li>
-                <li><a href="/data/heatmap_last30days">Heatmap</a> - last 30 days</li>
+                <li><a href="/lineplot_last24hours">Line plot</a> - last 24 hours</li>
+                <li><a href="/heatmap_last30days">Heatmap</a> - last 30 days</li>
             </ul>
         </div>
         <div>
-            <h5>Advanced</h5>
+            <h5>Experimental</h5>
             <ul>
-                <p>nothing to be seen so far...</p>
+                <p>nothing right now...</p>
             </ul>
         </div>
-        <div>
-            <h5>Site info</h5>
-            <div>
-                <p>TODO: display ipinfo.io json here.</p>
-            </div>
+        <div class="footer">
+            <h5>App info</h5>
             <div>
                 <p>Version: {{ version }}, License: MIT, Copyright (c) 2019 Tobias Frei</p>
             </div>
