@@ -2,7 +2,7 @@
 speedtest_http
 ==============
 
-.. image:: https://img.shields.io/docker/build/shuntingyard/speedtest_reader.svg
+.. image:: https://img.shields.io/docker/build/shuntingyard/speedtest_http.svg
 
 Visualize data from speedtest_sampler in a web app
 
