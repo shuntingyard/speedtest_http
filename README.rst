@@ -2,9 +2,8 @@
 speedtest_http
 ==============
 
-.. image:: https://img.shields.io/docker/build/shuntingyard/speedtest_http.svg
-        :target: https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http
-        :alt: docker
+.. image:: https://img.shields.io/docker/cloud/build/shuntingyard/speedtest_http.svg
+
 Visualize data from speedtest_sampler in a web app
 
 
