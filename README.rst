@@ -20,19 +20,88 @@ Description
 flask / plotly web app for visualizing internet uplink speeds.
 Environments supported so far:
 
-- Docker container
-
+Docker container
 .. image:: https://img.shields.io/docker/cloud/build/shuntingyard/speedtest_http.svg
         :target: https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http/
         :alt: Docker Image
 
 
-- GNU/Linux hosts with Python >= 3.6 installed
-
+GNU/Linux hosts with Python >= 3.6 installed
 .. image:: https://img.shields.io/pypi/pyversions/speedtest-http.svg
         :target: https://pypi.python.org/pypi/speedtest-http/
         :alt: Versions
 
+
+Other POSIX systems and Windows need testing     
+
+Recent changes
+--------------
+
+- technical, dash removed, all graphs powered by pure plotly now
+
+Installation
+------------
+
+dockerhub
+~~~~~~~~~
+
+::
+
+   docker pull shuntingyard/speedtest_http
+
+   # Please adapt port, volumes and env variables according to your needs. 
+   sudo docker run \
+    --restart always \
+    --publish 80:5000 \
+    --volume ~/data:/data \
+    --volume ~/log:/var/log \
+    --env "TZ=Europe/Zurich" \
+    --env "ENV INFILE /data/speedtest.csv" \
+    --env "SITENAME=Uplink green.ch" \
+    --tty --interactive \
+    shuntingyard/speedtest_http
+
+pip / easy\_install
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+   pip install speedtest_http
+
+or
+
+::
+
+   easy_install speedtest_http
+
+Github
+~~~~~~
+
+::
+
+   pip install git+https://github.com/shuntingyard/speedtest_http.git
+
+or
+
+::
+
+   git clone https://github.com/shuntingyard/speedtest_http.git
+   cd speedtest_http
+   python setup.py install
+
+run in shell environments
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+   # Please adapt env variables, host, port according to your needs. 
+   export TZ=Europe/Zurich \
+   export INFILE=~/data/speedtest.csv \
+   export LOGDIR=~/log \
+   export SITENAME="Uplink green.ch" \
+   export FLASK_APP=speedtest_http \
+   export FLASK_DEBUG=0 \
+   python -m flask run -h 0.0.0.0 -p 8080
 
 Status
 ------
