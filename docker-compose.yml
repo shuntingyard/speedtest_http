@@ -8,8 +8,7 @@ services:
         ports:
           - "80:5000"
         volumes:
-          - /data:/data
-          - /data/log:/var/log
+          - /data:/var/lib/speedtest
         environment:
           - FLASK_DEBUG=1
           - TZ=Europe/Zurich

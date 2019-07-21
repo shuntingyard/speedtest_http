@@ -6,8 +6,7 @@
 sudo docker run \
     --restart always \
     --publish 80:5000 \
-    --volume /data:/data \
-    --volume /data/log:/var/log \
+    --volume /data:/var/lib/speedtest \
     --env "TZ=Europe/Zurich" \
     --env "SITENAME=Uplink green.ch" \
     --tty --interactive \

@@ -13,10 +13,10 @@ import speedtest_reader
 
 from flask import Flask
 from flask.logging import default_handler
-
 from logging.handlers import TimedRotatingFileHandler
 from pkg_resources import get_distribution
 from pkg_resources import DistributionNotFound
+from speedtest_reader import logger as reader_logger
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
@@ -30,7 +30,7 @@ except DistributionNotFound:
 finally:
     del get_distribution, DistributionNotFound
 
-# Flask init 
+# Flask init
 app = Flask(__name__)
 
 # env or last-resort defaults
@@ -39,14 +39,11 @@ TZ = os.environ.get("TZ", None)
 LOGDIR = os.environ.get("LOGDIR", ".")
 SITENAME = os.environ.get("SITENAME", None)
 
-# to be imported late, after flask app initialization
-from speedtest_http import views
-
 # logging settings
-FMT_LOGFILE = "[%(asctime)s] %(levelname)s: %(name)s: %(message)s"
-FMT_CONSOLE = "[%(asctime)s] %(message)s"
+FMT_LOGFILE = "[%(asctime)s] %(levelname)-8s %(name)s: %(message)s"
+FMT_CONSOLE = "[%(asctime)s] %(name)s: %(message)s"
 
-# remove it when logging is initialized after the flask app
+# remove when logging is initialized after the flask app
 app.logger.removeHandler(default_handler)
 
 if app.debug:
@@ -57,9 +54,8 @@ if app.debug:
     app.logger.addHandler(sh)
 
     # TODO make this configurable.
-    l2 = logging.getLogger("speedtest_reader.reader")
-    l2.setLevel(logging.DEBUG)
-    l2.addHandler(sh)
+    reader_logger.setLevel(logging.DEBUG)
+    reader_logger.addHandler(sh)
 else:
     fh = TimedRotatingFileHandler(
         os.path.join(LOGDIR, "speedtest_http.log"), "midnight"
@@ -70,9 +66,8 @@ else:
     app.logger.addHandler(fh)
 
     # TODO make this configurable.
-    l2 = logging.getLogger("speedtest_reader.reader")
-    l2.setLevel(logging.INFO)
-    l2.addHandler(fh)
+    reader_logger.setLevel(logging.INFO)
+    reader_logger.addHandler(fh)
 
 # Say how we were started - but only once, hence this condition:
 if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
@@ -94,3 +89,6 @@ if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     ]
     for line in msg:
         app.logger.info(line)
+
+# to be imported late, after flask app initialization
+from speedtest_http import views

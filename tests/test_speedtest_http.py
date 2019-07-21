@@ -6,10 +6,10 @@ import speedtest_http
 class Speedtest_httpTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.srv = speedtest_http.srv.test_client()
+        self.app = speedtest_http.app.test_client()
 
     def test_index(self):
-        rv = self.srv.get('/')
+        rv = self.app.get('/')
         self.assertIn('Index', rv.data.decode())
 
 

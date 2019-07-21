@@ -6,6 +6,7 @@ The V (as in MVC) module
 
 from flask import request
 from flask import render_template
+from speedtest_reader import format_timestamps, Reader, util
 
 from speedtest_http import __version__
 from speedtest_http import INFILE
@@ -15,12 +16,23 @@ from speedtest_http import app
 
 # charts
 from speedtest_http import gitau
-from speedtest_http import plt_lineplot
+from speedtest_http import plt_scatter
 from speedtest_http import plt_heatmap
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
 __license__ = "mit"
+
+
+sensor1 = Reader(INFILE)
+
+
+@util.append_tslocal()
+@util.to_Mbit
+def slice_s1(**kwargs):
+    kwargs["tz"] = TZ
+    start, end = format_timestamps(**kwargs)
+    return sensor1.copy_df(start, end)
 
 
 @app.route("/")
@@ -34,8 +46,9 @@ def _index():
 def lineplot_today():
     return render_template(
         "gt2.html",
-        plot=plt_lineplot.layout(
-            INFILE, TZ, SITENAME, mnemonic="from_midnight"
+        plot=plt_scatter.plot(
+            slice_s1(start="12 midnight"),
+            title=f"Lineplot for {SITENAME} - from midnight",
         ),
     )
 
@@ -44,7 +57,10 @@ def lineplot_today():
 def lineplot_last24():
     return render_template(
         "gt2.html",
-        plot=plt_lineplot.layout(INFILE, TZ, SITENAME, start="24 hours ago"),
+        plot=plt_scatter.plot(
+            slice_s1(start="24 hours ago"),
+            title=f"Lineplot for {SITENAME} - last 24 hours",
+        ),
     )
 
 
@@ -52,7 +68,10 @@ def lineplot_last24():
 def heatmap():
     return render_template(
         "gt2.html",
-        plot=plt_heatmap.plot(INFILE, TZ, SITENAME, start="30 days ago"),
+        plot=plt_heatmap.plot(
+            slice_s1(start="30 days ago"),
+            title=f"Download avg (Mbit/s) for {SITENAME} - last 30 days",
+        ),
     )
 
 

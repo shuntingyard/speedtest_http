@@ -2,26 +2,26 @@ FROM python:3.7
 MAINTAINER Tobias Frei (shuntingyard@gmail.com)
 
 # Set /app as working directory.
-# WORKDIR /app
+WORKDIR /app
 
 # Copy requirements to /app directory.
-# COPY requirements.txt /app
+COPY requirements.txt /app
 
 # Install required packages.
-# RUN pip install --trusted-host pypi.python.org -r requirements.txt
-RUN pip install --trusted-host pypi.python.org speedtest-http==0.0.2b
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install speedtest_http
+# RUN pip install --trusted-host pypi.python.org speedtest-http==0.0.4
+
 
 # Create directories for data access and logging.
-RUN \
-    mkdir /data \
-    mkdir -p /var/log
+RUN mkdir -p /var/lib/speedtest
 
 # Timezone for app AND containers.
 ENV TZ UTC
 
 # Configure application environment.
-ENV INFILE /data/speedtest.csv
-ENV LOGDIR /var/log
+ENV INFILE /var/lib/speedtest/speedtest.csv
+ENV LOGDIR /var/lib/speedtest
 ENV SITENAME <Your Sitename here>
 
 # Configure Flask environment.

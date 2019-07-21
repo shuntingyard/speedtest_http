@@ -12,35 +12,26 @@ import pandas as pd
 import plotly
 import plotly.graph_objs as go
 
-from speedtest_reader import read_by_ts
-from speedtest_reader import reader
-
-# decorate
-read_by_ts = reader.bit_to_Mbit(read_by_ts)
-read_by_ts = (reader.append_tslocal())(read_by_ts)
+from speedtest_reader import util
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
 __license__ = "mit"
 
-_logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
-def plot(INFILE, TZ, SITENAME, start=None, end=None):
-    """Plot a heatmap TBD...TBD!
-
-    Time-frames are configurable via shorthands (e.g. `last24hours`).
+@util.stopwatch
+def plot(df, title):
+    """
+    TODO
     Upon success a plotly-JSON-encoded graph is returned.
     """
-    df = read_by_ts(INFILE, start=start)
-
     # Data preparation
 
     # First add hour and date columns.
     df["hour"] = [ts.strftime("%H:00") for ts in df["tslocal"]]
     df["date"] = [ts.strftime("%m-%d %a") for ts in df["tslocal"]]
-    # FIXME these are now back to the UTC bug. So we need decorators
-    #      (agnostic-t) in the near future.
 
     # Then use pandas' pivot table function.
     corr = pd.pivot_table(
@@ -71,8 +62,8 @@ def plot(INFILE, TZ, SITENAME, start=None, end=None):
         # TODO Graph width/ height: plotly only accepts px values so far,
         #      so set these with care and watch out for API improvements.
         layout=go.Layout(
-            title=f"Download avg (Mbit/s) for {SITENAME}",
-            xaxis=dict(title=start, showgrid=False, automargin=True),
+            title=f"{title}",
+            xaxis=dict(showgrid=False, automargin=True),
             yaxis=dict(showgrid=False, tick0=0),
             height=600
         ),

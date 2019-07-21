@@ -29,7 +29,7 @@ Environments supported so far:
 - Docker container
 - GNU/Linux hosts with Python >= 3.6 installed
 
-Other POSIX systems and Windows need testing     
+(Other POSIX systems and Windows need testing.)
 
 Recent changes
 --------------
