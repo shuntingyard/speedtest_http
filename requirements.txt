@@ -17,5 +17,5 @@
 
 flask
 plotly
-# speedtest_reader
-git+https://github.com/shuntingyard/speedtest_reader.git
+speedtest_reader>=0.0.4
+# git+https://github.com/shuntingyard/speedtest_reader.git

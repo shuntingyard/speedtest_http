@@ -127,7 +127,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# ignore experimental
-experimental/
-
 # End of https://www.gitignore.io/api/python
+
+# Project specific
+experimental/
+speedtest.csv

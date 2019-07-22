@@ -90,5 +90,5 @@ if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     for line in msg:
         app.logger.info(line)
 
-# to be imported late, after flask app initialization
-from speedtest_http import views
+    # to be imported late, after flask app initialization
+    from speedtest_http import views
