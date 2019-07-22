@@ -101,7 +101,17 @@ run in shell environments
    FLASK_DEBUG=0 \
    python -m flask run -h 0.0.0.0 -p 8080
 
-Status
-------
+Changelog
+---------
 
-- Examples of lineplots, scatterplots and heatmap work.
+Version 0.0.4
+~~~~~~~~~~~~~
+
+- Using new `speedtest_reader <https://pypi.org/project/speedtest-reader/>`_ API
+
+- All graphs migrated from Dash to Plotly
+  
+Version 0.0.3
+~~~~~~~~~~~~~
+
+- All graphs migrated from Dash to Plotly
