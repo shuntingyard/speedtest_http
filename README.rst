@@ -118,8 +118,6 @@ Version 0.0.4
 ~~~~~~~~~~~~~
 
 - Using new `speedtest_reader <https://pypi.org/project/speedtest-reader/>`_ API
-
-- All graphs migrated from Dash to Plotly
   
 Version 0.0.3
 ~~~~~~~~~~~~~
