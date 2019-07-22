@@ -1,8 +1,14 @@
 # TODO list
 
-- [ ] Find a method to do *continuous* Docker builds.
+- [ ] Write upnp-ssdp code to announce speedtest_http 
 
-- [ ] Observe (and mabe fix) /lineplot_today, as it continues (for how many
+- [ ] Find a method to do *continuous* builds with docker-compose
+
+- [ ] Fix instruction in https://github.com/shuntingyard/speedtest_http#dockerhub
+
+- [ ] Write a *short*, dockerhub-specific README.md
+
+- [x] Observe (and mabe fix) /lineplot_today, as it continues (for how many
   hours into the night?) showing the last day after midnight.
 
 - [ ] Set up Travis.
