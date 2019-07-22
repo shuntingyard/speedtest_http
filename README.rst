@@ -26,7 +26,7 @@ Screenshots
 
 .. image:: static/Heatmap30.png
         :alt: Demo Heatmap
-        :scale: 82 %
+        :scale: 100 %
 
 Description
 -----------
