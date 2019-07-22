@@ -24,8 +24,18 @@ powered by `Plotly <https://plot.ly/python/>`_
 Screenshots
 -----------
 
+Desktop
+~~~~~~~
+
 .. image:: static/Heatmap30.png
-        :alt: Demo Heatmap
+        :alt: Desktop Heatmap
+        :scale: 100 %
+
+Android
+~~~~~~~
+
+.. image:: static/LineplotTodayAndroid.png
+        :alt: Android Lineplot
         :scale: 100 %
 
 Description
