@@ -34,7 +34,7 @@ finally:
 app = Flask(__name__)
 
 # env or last-resort defaults
-INFILE = os.environ.get("INFILE", "./speedtest.csv")
+INFILE = os.environ.get("INFILE", os.path.join(os.getcwd(), "tests/min.csv"))
 TZ = os.environ.get("TZ", None)
 LOGDIR = os.environ.get("LOGDIR", ".")
 SITENAME = os.environ.get("SITENAME", None)

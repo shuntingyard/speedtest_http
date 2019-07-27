@@ -1,0 +1,15 @@
+language: python
+
+matrix:
+  include:
+    - python: 3.6
+      env: TOXENV=py36
+    - python: pypy
+      env: TOXENV=pypy
+
+script:
+  - tox
+
+notifications:
+  email:
+    - shuntingyard@gmail.com
