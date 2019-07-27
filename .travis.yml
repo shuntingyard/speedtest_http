@@ -8,8 +8,8 @@ matrix:
       env: TOXENV=pypy
 
 before_install:
-  - pip install -U setuptools
-    pip install tox
+  - pip install -U setuptools;
+    pip install tox;
           
 script:
   - tox
