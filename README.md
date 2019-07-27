@@ -17,12 +17,12 @@ Screenshots
 Desktop
 ~~~~~~~
 
-[![Desktop Heatmap](static/Heatmap30.png)]
+![Desktop Heatmap](static/Heatmap30.png)
 
 Android
 ~~~~~~~
 
-[![Android Lineplot](static/LineplotTodayAndroid.png)]
+![Android Lineplot](static/LineplotTodayAndroid.png)
 
 Install and run
 ---------------
@@ -33,13 +33,13 @@ dockerhub
 Get up and running instantly, with a speedtest.csv file in your home dir and
 logs written to stdout.
 
-```
+::
+
    # Please adapt details (container timezone, sitename) to your needs.
 
    docker run -ti -p 80:5000 -v ~:/root -e FLASK_DEBUG=1 -e "TZ=EST" \
       -e "INFILE=/root/speedtest.csv" -e "SITENAME=my provider" \
       shuntingyard/speedtest_http
-```
 
 README.rst
 ----------
