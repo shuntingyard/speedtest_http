@@ -9,6 +9,7 @@ matrix:
 
 before_install:
   - pip install -U setuptools
+    pip install tox
           
 script:
   - tox
