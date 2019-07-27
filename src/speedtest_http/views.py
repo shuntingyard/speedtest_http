@@ -4,7 +4,8 @@
 The V (as in MVC) module
 """
 
-from flask import request
+from datetime import datetime
+
 from flask import render_template
 from speedtest_reader import format_timestamps, Reader, util
 
@@ -15,14 +16,12 @@ from speedtest_http import TZ
 from speedtest_http import app
 
 # charts
-from speedtest_http import gitau
 from speedtest_http import plt_scatter
 from speedtest_http import plt_heatmap
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
 __license__ = "mit"
-
 
 sensor1 = Reader(INFILE)
 
@@ -44,10 +43,11 @@ def _index():
 
 @app.route("/lineplot_today")
 def lineplot_today():
+    midnight = datetime.today().replace(hour=0, minute=0, second=0)
     return render_template(
         "gt2.html",
         plot=plt_scatter.plot(
-            slice_s1(start="12 midnight"),
+            slice_s1(start=midnight),
             title=f"Lineplot for {SITENAME} - from midnight",
         ),
     )
@@ -73,18 +73,6 @@ def heatmap():
             title=f"Download avg (Mbit/s) for {SITENAME} - last 30 days",
         ),
     )
-
-
-@app.route("/gitau")
-def bars():
-    """The example used to model the first pure plotly plot."""
-    return render_template("gitau.html", plot=gitau.plot("Bar"))
-
-
-@app.route("/gitau/sel", methods=["GET", "POST"])
-def change_feature():
-    """Endpoint for AJAX calls"""
-    return gitau.plot(request.args["selected"])
 
 
 @app.errorhandler(404)

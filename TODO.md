@@ -6,14 +6,16 @@
 
 - [x] Write a *short*, dockerhub-specific README.md
 
-- [ ] Observe (and maybe fix) /lineplot_today, as it continues (for how many
+- [x] Observe (and maybe fix) /lineplot_today, as it continues (for how many
   hours into the night?) showing the last day after midnight.
 
 - [ ] Set up Travis.
 
 - [ ] Assure this runs on all targeted 3.x versions.
 
-- [ ] Review/ complete test cases.
+- [x] Review/ complete test cases.
+
+- [ ] Check, complete, comment (README.rst) example startup scripts.
 
 - [ ] Terminology cleanup in doc and docstrings.
 
