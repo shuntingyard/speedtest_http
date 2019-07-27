@@ -1,17 +1,17 @@
-FROM python:3.7
+FROM python:3.6
 MAINTAINER Tobias Frei (shuntingyard@gmail.com)
 
-# Set /app as working directory.
-#WORKDIR /app
+# Set build directory.
+WORKDIR /build
 
-# Copy requirements to /app directory.
-#COPY requirements.txt /app
+# Copy project environment.
+COPY . /build/
 
-# Install required packages.
-#RUN pip install --trusted-host pypi.python.org -r requirements.txt
-#RUN pip install speedtest_http <== not working
-RUN pip install --trusted-host pypi.python.org speedtest_http==0.0.4
+RUN python setup.py install
 
+# Remove project environment.
+WORKDIR /
+RUN rm -rf /build
 
 # Create directories for data access and logging.
 RUN mkdir -p /var/lib/speedtest
