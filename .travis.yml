@@ -1,19 +1,16 @@
+dist: xenial   # required for Python >= 3.7
 language: python
 
-matrix:
-  include:
-    - python: 3.6
-      env: TOXENV=flake8
-    - python: 3.6
-      env: TOXENV=py36
+python:
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8-dev"  # 3.8 development branch
 
-before_install:
-  - pip install -U setuptools;
-    pip install tox;
-          
+install:
+  - pip install -r requirements.txt
+
 script:
-  - tox
-
-notifications:
-  email:
-    - shuntingyard@gmail.com
+  - pytest
