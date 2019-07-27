@@ -9,7 +9,7 @@ powered by `Plotly <https://plot.ly/python/>`_
         :target: https://pypi.python.org/pypi/speedtest-http/
         :alt: Latest Version
 .. image:: https://img.shields.io/travis/shuntingyard/speedtest-http.svg
-        :target: https://pypi.python.org/pypi/speedtest-http/
+        :target: https://travis-ci.com/shuntingyard/speedtest_http 
         :alt: Travis
 .. image:: https://img.shields.io/pypi/l/speedtest-http.svg
         :target: http://github.com/shuntingyard/speedtest_http/blob/master/LICENSE.txt 

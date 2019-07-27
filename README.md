@@ -6,7 +6,7 @@ powered by [Plotly](https://plot.ly/python/)
 
 
 [![Latest Version](https://img.shields.io/pypi/v/speedtest-http.svg)](https://pypi.python.org/pypi/speedtest-http/)
-[![Travis](https://img.shields.io/travis/shuntingyard/speedtest-http.svg)](https://pypi.python.org/pypi/speedtest-http/)
+[![Travis](https://img.shields.io/travis/shuntingyard/speedtest-http.svg)](https://travis-ci.com/shuntingyard/speedtest_http)
 [![License](https://img.shields.io/pypi/l/speedtest-http.svg)](http://github.com/shuntingyard/speedtest_http/blob/master/LICENSE.txt)
 [![Docker Image](https://img.shields.io/docker/cloud/build/shuntingyard/speedtest_http.svg)](https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http/builds)
 [![Versions](https://img.shields.io/pypi/pyversions/speedtest-http.svg)](https://pypi.python.org/pypi/speedtest-http/)

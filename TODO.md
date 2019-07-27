@@ -11,7 +11,7 @@
 
 - [x] Set up Travis.
 
-- [ ] Assure this runs on all targeted 3.x versions.
+- [x] Assure this runs on all targeted 3.x versions.
 
 - [x] Review/ complete test cases.
 
