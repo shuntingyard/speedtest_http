@@ -8,18 +8,18 @@ powered by [Plotly](https://plot.ly/python/)
 [![Latest Version](https://img.shields.io/pypi/v/speedtest-http.svg)](https://pypi.python.org/pypi/speedtest-http/)
 [![Travis](https://img.shields.io/travis/shuntingyard/speedtest-http.svg)](https://pypi.python.org/pypi/speedtest-http/)
 [![License](https://img.shields.io/pypi/l/speedtest-http.svg)](http://github.com/shuntingyard/speedtest_http/blob/master/LICENSE.txt)
-[![Docker Image](https://img.shields.io/docker/cloud/build/shuntingyard/speedtest_http.svg)](https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http/)
+[![Docker Image](https://img.shields.io/docker/cloud/build/shuntingyard/speedtest_http.svg)](https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http/builds)
 [![Versions](https://img.shields.io/pypi/pyversions/speedtest-http.svg)](https://pypi.python.org/pypi/speedtest-http/)
 
 ## Screenshots
 
 ### Desktop
 
-![Desktop Heatmap](static/Heatmap30.png)
+![Desktop Heatmap](https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/Heatmap30.png)
 
 ### Android
 
-![Android Lineplot](static/LineplotTodayAndroid.png)
+![Android Lineplot](https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/LineplotTodayAndroid.png)
 
 ## Install and run
 

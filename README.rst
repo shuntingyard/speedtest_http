@@ -15,7 +15,7 @@ powered by `Plotly <https://plot.ly/python/>`_
         :target: http://github.com/shuntingyard/speedtest_http/blob/master/LICENSE.txt 
         :alt: License
 .. image:: https://img.shields.io/docker/cloud/build/shuntingyard/speedtest_http.svg
-        :target: https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http/
+        :target: https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http/builds 
         :alt: Docker Image
 .. image:: https://img.shields.io/pypi/pyversions/speedtest-http.svg
         :target: https://pypi.python.org/pypi/speedtest-http/
