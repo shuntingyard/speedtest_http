@@ -3,9 +3,9 @@ language: python
 matrix:
   include:
     - python: 3.6
+      env: TOXENV=flake8
+    - python: 3.6
       env: TOXENV=py36
-    - python: pypy
-      env: TOXENV=pypy
 
 before_install:
   - pip install -U setuptools;
