@@ -53,20 +53,21 @@ Recent changes
 
 - technical, dash removed, all graphs powered by pure plotly now
 
-Installation
-------------
+Install and run
+---------------
 
 dockerhub
 ~~~~~~~~~
 
+Get up and running instantly, with a speedtest.csv file in your home dir and
+logs written to stdout.
+
 ::
 
-   docker pull shuntingyard/speedtest_http
+   # Please adapt details (container timezone, sitename) to your needs.
 
-   # Please adapt port, volumes and env variables according to your needs.
-
-   docker run -d -p 80:5000 -v ~/data:/data -e "TZ=EST" \
-      -e "INFILE=/data/speedtest.csv" -e "SITENAME=my provider" \
+   docker run -ti -p 80:5000 -v ~:/root -e FLASK_DEBUG=1 -e "TZ=EST" \
+      -e "INFILE=/root/speedtest.csv" -e "SITENAME=my provider" \
       shuntingyard/speedtest_http
 
 pip / easy\_install

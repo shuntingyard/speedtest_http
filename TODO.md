@@ -2,9 +2,9 @@
 
 - [x] Find a method to do *continuous* builds with docker-compose
 
-- [ ] Fix instruction in https://github.com/shuntingyard/speedtest_http#dockerhub
+- [x] Fix instruction in https://github.com/shuntingyard/speedtest_http#dockerhub
 
-- [ ] Write a *short*, dockerhub-specific README.md
+- [x] Write a *short*, dockerhub-specific README.md
 
 - [ ] Observe (and maybe fix) /lineplot_today, as it continues (for how many
   hours into the night?) showing the last day after midnight.
