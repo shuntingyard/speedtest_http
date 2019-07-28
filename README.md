@@ -38,4 +38,4 @@ logs written to stdout.
 
 ## README.rst
 
-Please continue reading [here](https://pypi.org/project/speedtest-http/).
+Please continue reading [here](https://github.com/shuntingyard/speedtest_http/blob/master/README.rst#dockerhub)
