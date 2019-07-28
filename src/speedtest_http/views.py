@@ -18,6 +18,7 @@ from speedtest_http import app
 # charts
 from speedtest_http import plt_scatter
 from speedtest_http import plt_heatmap
+from speedtest_http import plt_3Ddensity
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
@@ -69,8 +70,19 @@ def heatmap():
     return render_template(
         "gt2.html",
         plot=plt_heatmap.plot(
-            slice_s1(start="30 days ago"),
+            slice_s1(),
             title=f"Download avg (Mbit/s) for {SITENAME} - last 30 days",
+        ),
+    )
+
+
+@app.route("/density_all")
+def density_all():
+    return render_template(
+        "gt2.html",
+        plot=plt_3Ddensity.plot(
+            slice_s1(start="30 days ago"),
+            title=f"Download speeds - density per day",
         ),
     )
 

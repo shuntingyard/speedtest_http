@@ -51,7 +51,7 @@ Web app for visualizing internet uplink speeds. Environments supported so far:
 Recent changes
 --------------
 
-- technical, dash removed, all graphs powered by pure plotly now
+- Experimental graph for download speed densities (3D) added
 
 Install and run
 ---------------
@@ -114,6 +114,11 @@ run in shell environments
 
 Changelog
 ---------
+
+Version 0.0.5
+~~~~~~~~~~~~~
+
+- Experimental graph for download speed densities (3D) added
 
 Version 0.0.4
 ~~~~~~~~~~~~~

@@ -24,6 +24,10 @@ class Speedtest_httpTestCase(unittest.TestCase):
         rv = self.app.get('/heatmap_last30days')
         self.assertIn('last 30 days', rv.data.decode())
 
+    def test_density_all(self):
+        rv = self.app.get('/density_all')
+        self.assertIn('density per day', rv.data.decode())
+
 
 if __name__ == '__main__':
     unittest.main()

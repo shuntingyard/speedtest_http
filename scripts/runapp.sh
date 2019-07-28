@@ -8,5 +8,5 @@ export SITENAME="Uplink green.ch"
 
 # set environment for flask
 export FLASK_APP=speedtest_http
-export FLASK_DEBUG=0
+export FLASK_DEBUG=1
 python -m flask run -h 0.0.0.0  # -p 8050
