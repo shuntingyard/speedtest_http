@@ -73,7 +73,7 @@ else:
 if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 
     # For now list all loggers to stdout when debugging.
-    if True:  # app.debug:
+    if app.debug:
         for name, obj in logging.root.manager.loggerDict.items():
             if isinstance(obj, logging.Logger):
                 print(f"{name:36s} {obj}")

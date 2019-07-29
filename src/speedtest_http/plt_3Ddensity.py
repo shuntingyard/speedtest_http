@@ -27,10 +27,9 @@ def plot(df, title):
     """
     # prepare bins
     try:
-        bin_max = int(df.Download.max()) + 1
+        bin_max = int(df.Download.max()) + 2
     except ValueError:  # the case of only Nan
-        bin_max = 0
-    bin_range = range(1, bin_max + 1)
+        bin_max = 2
 
     # prepare grouping by a given time unit
     df["Time"] = [
@@ -40,7 +39,10 @@ def plot(df, title):
 
     # append bins for Download values
     df["Speed"] = pd.cut(
-        x=df.Download, bins=bin_range, labels=range(1, bin_max)
+        x=df.Download,
+        bins=range(bin_max),
+        labels=range(bin_max - 1),
+        right=False,
     )
 
     # append a density column to aggregate
@@ -84,13 +86,14 @@ def plot(df, title):
     fig.layout = dict(
         title_text=title,
         yaxis=go.layout.YAxis(type="date"),
-        scene_camera_eye=dict(x=1, y=3, z=-0.1),
+        scene_camera_eye=dict(x=0.6, y=2, z=-0.1),
         scene=dict(
             xaxis_title="density (no unit)",
             yaxis_title="time",
             zaxis_title="speed (Mbit/s)",
         ),
-        width=1280, height=720
+        # width=1280,
+        height=720,
     )
 
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

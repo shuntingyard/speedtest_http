@@ -27,14 +27,14 @@ Screenshots
 Desktop
 ~~~~~~~
 
-.. image:: static/Heatmap30.png
+.. image:: https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/Heatmap30.png
         :alt: Desktop Heatmap
         :scale: 100 %
 
 Android
 ~~~~~~~
 
-.. image:: static/LineplotTodayAndroid.png
+.. image:: https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/LineplotTodayAndroid.png
         :alt: Android Lineplot
         :scale: 100 %
 

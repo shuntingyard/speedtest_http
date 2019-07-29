@@ -70,7 +70,7 @@ def heatmap():
     return render_template(
         "gt2.html",
         plot=plt_heatmap.plot(
-            slice_s1(),
+            slice_s1(start="30 days ago"),
             title=f"Download avg (Mbit/s) for {SITENAME} - last 30 days",
         ),
     )
@@ -81,7 +81,7 @@ def density_all():
     return render_template(
         "gt2.html",
         plot=plt_3Ddensity.plot(
-            slice_s1(start="30 days ago"),
+            slice_s1(),
             title=f"Download speeds - density per day",
         ),
     )
