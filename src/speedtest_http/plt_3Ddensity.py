@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 TODO
 """
@@ -36,6 +35,9 @@ def plot(df, title):
         ts.replace(hour=0, minute=0, second=0, microsecond=0)
         for ts in df["tslocal"]
     ]
+
+    # prepare coloring as "the more recent the lighter in color"
+    first = df["Time"].min().timestamp()
 
     # append bins for Download values
     df["Speed"] = pd.cut(
@@ -76,7 +78,10 @@ def plot(df, title):
             name="density",
             mode="markers",
             marker=dict(
-                size=2, color=1 / g3.Density, colorscale="viridis", opacity=0.7
+                size=2,
+                color=[t.timestamp() - first for t in g3.Time],
+                colorscale="viridis",
+                opacity=0.7,
             ),
         )
     )

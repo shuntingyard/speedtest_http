@@ -19,12 +19,14 @@
 
 - [ ] Heatmap: hover texts should include hour
 
-- [ ] ver 0.0.5 lab: 3d graph daily download densities for timeframe
+- [x] ver 0.0.5 lab: 3d graph daily download densities for timeframe
 
 - [ ] ver 0.0.6 heatmap etc: see what we gain with a second Reader instance
   not containing "Upload". (Needs fix on `to_Mbit` decorator!)
 
 - [ ] Terminology cleanup in doc and docstrings.
+
+- [ ] Manual test series with almost empty INFILE.
 
 - [ ] Reduce *image size* (python:3.7 alone is > 900MB). If falling back to
   python:3.7-slim, a build toolchain for regex package would be required.
