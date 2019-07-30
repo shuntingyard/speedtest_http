@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-TODO
+Visualize download speed density data by counting values in (daily) bins
+and showing the counter's positions in 3D.
 """
 
 import json
@@ -36,9 +37,6 @@ def plot(df, title):
         for ts in df["tslocal"]
     ]
 
-    # prepare coloring as "the more recent the lighter in color"
-    first = df["Time"].min().timestamp()
-
     # append bins for Download values
     df["Speed"] = pd.cut(
         x=df.Download,
@@ -61,12 +59,12 @@ def plot(df, title):
 
     fig.add_trace(
         go.Scatter3d(
-            x=df.Density,
-            y=df.Time,
-            z=df.Speed,
+            x=[0] * len(df.Density),
+            y=df.tslocal,
+            z=df.Download,
             name="rug",
             mode="markers",
-            marker=dict(size=1),
+            marker=dict(size=2),
         )
     )
 
@@ -78,10 +76,10 @@ def plot(df, title):
             name="density",
             mode="markers",
             marker=dict(
-                size=2,
-                color=[t.timestamp() - first for t in g3.Time],
-                colorscale="viridis",
-                opacity=0.7,
+                size=6,
+                color=g3.Speed,
+                colorscale="blues",
+                opacity=0.9,
             ),
         )
     )

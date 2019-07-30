@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Present range selector buttons to inspect an entire week.
+Use range selector buttons to inspect data in a window of variable size
+(according to selections).
 """
 
 import json

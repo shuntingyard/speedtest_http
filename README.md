@@ -11,17 +11,17 @@ powered by [Plotly](https://plot.ly/python/)
 [![Docker Image](https://img.shields.io/docker/cloud/build/shuntingyard/speedtest_http.svg)](https://cloud.docker.com/repository/docker/shuntingyard/speedtest_http/builds)
 [![Versions](https://img.shields.io/pypi/pyversions/speedtest-http.svg)](https://pypi.python.org/pypi/speedtest-http/)
 
-## Screenshots
-
-### Desktop
-
-![Desktop Heatmap](https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/Heatmap30.png)
-
-### Android
+## Screenshot
 
 ![Android Lineplot](https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/LineplotTodayAndroid.png)
 
 ## Install and run
+
+### First and foremost
+
+Start collecting data. Ready-to-use solutions for doing so are available
+[here](https://hub.docker.com/r/shuntingyard/speedtest_sampler) and
+[here](https://pypi.org/project/speedtest_logger/).
 
 ### dockerhub
 
@@ -38,4 +38,4 @@ logs written to stdout.
 
 ## README.rst
 
-Please continue reading [here](https://github.com/shuntingyard/speedtest_http/blob/master/README.rst#dockerhub)
+Please continue reading [here](https://github.com/shuntingyard/speedtest_http/blob/master/README.rst#description) for more details.

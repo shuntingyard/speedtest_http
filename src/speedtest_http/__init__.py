@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 The module to be launched as Flask app - spins up the things necessary
 to serve plots over http.

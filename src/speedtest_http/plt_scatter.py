@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-
 """
-TODO
+Visualize collected datta by using simple line- and scatter plots
+combined für upload and download speeds.
 """
 
 import json
@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
 @util.stopwatch
 def plot(df, title):
     """
-    TODO
     Upon success a plotly-JSON-encoded graph is returned.
     """
     graph = dict(
@@ -45,8 +44,7 @@ def plot(df, title):
         #      so set these with care and watch out for API improvements.
         layout=go.Layout(
             title=f"{title}",
-            yaxis={"title": "speed (Mbit/s)"},
-            # legend={"x": 0, "y": 1},
+            yaxis=dict(title="speed (Mbit/s)"),
             ),
         )
 

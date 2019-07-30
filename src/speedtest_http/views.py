@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 The V (as in MVC) module
 """
@@ -15,7 +14,6 @@ from speedtest_http import SITENAME
 from speedtest_http import TZ
 from speedtest_http import app
 
-# charts
 from speedtest_http import plt_scatter
 from speedtest_http import plt_selectors
 from speedtest_http import plt_heatmap
@@ -28,6 +26,7 @@ __license__ = "mit"
 sensor1 = Reader(INFILE)
 
 
+# Reader API
 @util.append_tslocal()
 @util.to_Mbit
 def slice_s1(**kwargs):
@@ -112,5 +111,4 @@ def lineplot_selectable():
 
 @app.errorhandler(404)
 def http404_e(e):
-    """Not found"""
     return render_template("404.html"), 404

@@ -21,18 +21,8 @@ powered by `Plotly <https://plot.ly/python/>`_
         :target: https://pypi.python.org/pypi/speedtest-http/
         :alt: Versions
 
-Screenshots
------------
-
-Desktop
-~~~~~~~
-
-.. image:: https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/Heatmap30.png
-        :alt: Desktop Heatmap
-        :scale: 100 %
-
-Android
-~~~~~~~
+Screenshot
+----------
 
 .. image:: https://raw.githubusercontent.com/shuntingyard/speedtest_http/master/static/LineplotTodayAndroid.png
         :alt: Android Lineplot

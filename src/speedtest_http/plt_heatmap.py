@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-
 """
-To be done
+Give an overview by aggregating download speed value data (per hour) and
+arranging results in a heat map.
 """
 
 import json
@@ -24,7 +24,6 @@ logger = logging.getLogger(__name__)
 @util.stopwatch
 def plot(df, title):
     """
-    TODO
     Upon success a plotly-JSON-encoded graph is returned.
     """
     # Data preparation
@@ -44,9 +43,9 @@ def plot(df, title):
         hovertext.append([])
         for hval in hour:
             hovertext[-1].append(
-                "{}".format("no values at this time")
+                "{}".format("no value at this time")
                 if pd.isna(hval)
-                else f"DL speed: {round(hval, 2)} Mbit/s"
+                else f"{round(hval, 2)} Mbit/s"
             )
 
     graph = dict(
@@ -57,6 +56,7 @@ def plot(df, title):
                 z=corr.values,
                 text=hovertext,
                 hoverinfo=("text"),
+                colorscale="blues",
             )
         ],
         # TODO Graph width/ height: plotly only accepts px values so far,
