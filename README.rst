@@ -51,7 +51,8 @@ Web app for visualizing internet uplink speeds. Environments supported so far:
 Recent changes
 --------------
 
-- Experimental graph for download speed densities (3D) added
+- Added line plot with selectable window size 
+- Added 3D graph for download speed densities
 
 Install and run
 ---------------
@@ -115,10 +116,16 @@ run in shell environments
 Changelog
 ---------
 
+Version 0.0.6
+~~~~~~~~~~~~~
+
+- Line plot with selectable window size
+
+
 Version 0.0.5
 ~~~~~~~~~~~~~
 
-- Experimental graph for download speed densities (3D) added
+- 3D graph for download speed densities
 
 Version 0.0.4
 ~~~~~~~~~~~~~

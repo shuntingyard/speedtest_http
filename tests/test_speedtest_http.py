@@ -16,10 +16,6 @@ class Speedtest_httpTestCase(unittest.TestCase):
         rv = self.app.get('/lineplot_today')
         self.assertIn('from midnight', rv.data.decode())
 
-    def test_lineplot_last24(self):
-        rv = self.app.get('/lineplot_last24hours')
-        self.assertIn('last 24 hours', rv.data.decode())
-
     def test_heatmap(self):
         rv = self.app.get('/heatmap_last30days')
         self.assertIn('last 30 days', rv.data.decode())
@@ -28,6 +24,9 @@ class Speedtest_httpTestCase(unittest.TestCase):
         rv = self.app.get('/density_all')
         self.assertIn('density per day', rv.data.decode())
 
+    def test_lineplot_selectable(self):
+        rv = self.app.get('/lineplot_selectable')
+        self.assertIn('Selectable window', rv.data.decode())
 
 if __name__ == '__main__':
     unittest.main()

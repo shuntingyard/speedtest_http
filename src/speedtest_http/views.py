@@ -17,6 +17,7 @@ from speedtest_http import app
 
 # charts
 from speedtest_http import plt_scatter
+from speedtest_http import plt_selectors
 from speedtest_http import plt_heatmap
 from speedtest_http import plt_3Ddensity
 
@@ -76,6 +77,17 @@ def heatmap():
     )
 
 
+@app.route("/density_last30days")
+def density_last30():
+    return render_template(
+        "gt2.html",
+        plot=plt_3Ddensity.plot(
+            slice_s1(start="30 days ago"),
+            title=f"Download speeds - density last 30 days",
+        ),
+    )
+
+
 @app.route("/density_all")
 def density_all():
     return render_template(
@@ -83,6 +95,17 @@ def density_all():
         plot=plt_3Ddensity.plot(
             slice_s1(),
             title=f"Download speeds - density per day",
+        ),
+    )
+
+
+@app.route("/lineplot_selectable")
+def lineplot_selectable():
+    return render_template(
+        "gt2.html",
+        plot=plt_selectors.plot(
+            slice_s1(start="30 days ago"),
+            title=f"Selectable window",
         ),
     )
 
