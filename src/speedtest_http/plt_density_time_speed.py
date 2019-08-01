@@ -21,8 +21,14 @@ logger = logging.getLogger(__name__)
 
 
 @util.stopwatch
-def plot(df, title):
+def plot(df, title, colorscale="blues", color_on="speed"):
     """
+    Args:
+        df and title    trivial
+        colorscale      `str`: the scale to use for coloring
+        color_one       `str`: one of "density", "time", "speed" - select
+                        the dimension getting colored
+
     Upon success a plotly-JSON-encoded graph is returned.
     """
     # prepare bins
@@ -68,6 +74,16 @@ def plot(df, title):
         )
     )
 
+    # default marker, accentuating speed in blues
+    marker = dict(size=6, opacity=0.9, color=g3.Speed)
+    marker["colorscale"] = colorscale
+
+    if color_on == "density":
+        marker["color"] = g3.Density
+    elif color_on == "time":
+        marker["color"] = g3.Time - g3.Time.min()
+    # else the above default is used
+
     fig.add_trace(
         go.Scatter3d(
             x=g3.Density,
@@ -75,12 +91,7 @@ def plot(df, title):
             z=g3.Speed,
             name="density",
             mode="markers",
-            marker=dict(
-                size=6,
-                color=g3.Speed,
-                colorscale="blues",
-                opacity=0.9,
-            ),
+            marker=marker,
         )
     )
 
@@ -95,8 +106,7 @@ def plot(df, title):
             yaxis_title="time",
             zaxis_title="speed (Mbit/s)",
         ),
-        # width=1280,
-        height=720,
+        height=768,
     )
 
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

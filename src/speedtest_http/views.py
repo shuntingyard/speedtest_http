@@ -17,7 +17,8 @@ from speedtest_http import app
 from speedtest_http import plt_scatter
 from speedtest_http import plt_selectors
 from speedtest_http import plt_heatmap
-from speedtest_http import plt_3Ddensity
+from speedtest_http import plt_density_time_speed
+from speedtest_http import plt_contour_density
 
 __author__ = "Tobias Frei"
 __copyright__ = "Tobias Frei"
@@ -80,7 +81,7 @@ def heatmap():
 def density_last30():
     return render_template(
         "gt2.html",
-        plot=plt_3Ddensity.plot(
+        plot=plt_density_time_speed.plot(
             slice_s1(start="30 days ago"),
             title=f"Download speeds - density last 30 days",
         ),
@@ -91,9 +92,11 @@ def density_last30():
 def density_all():
     return render_template(
         "gt2.html",
-        plot=plt_3Ddensity.plot(
+        plot=plt_density_time_speed.plot(
             slice_s1(),
             title=f"Download speeds - density per day",
+            colorscale="reds",
+            color_on="time",
         ),
     )
 
@@ -105,6 +108,31 @@ def lineplot_selectable():
         plot=plt_selectors.plot(
             slice_s1(start="30 days ago"),
             title=f"Selectable window",
+        ),
+    )
+
+
+@app.route("/density_last30days_density")
+def density_last30_density():
+    return render_template(
+        "gt2.html",
+        plot=plt_density_time_speed.plot(
+            slice_s1(start="30 days ago"),
+            title=f"Download speeds - density last 30 days",
+            colorscale="viridis",
+            color_on="density",
+        ),
+    )
+
+
+@app.route("/contour_density_last30days")
+def contour_density_last30():
+    return render_template(
+        "gt2.html",
+        plot=plt_contour_density.plot(
+            slice_s1(start="30 days ago"),
+            title=f"Download speeds - density last 30 days",
+            colorscale="viridis"
         ),
     )
 
