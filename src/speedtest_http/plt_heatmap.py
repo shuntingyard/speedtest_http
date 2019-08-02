@@ -57,6 +57,7 @@ def plot(df, title):
                 text=hovertext,
                 hoverinfo=("text"),
                 colorscale="blues",
+                zsmooth=False,
             )
         ],
         # TODO Graph width/ height: plotly only accepts px values so far,
@@ -64,8 +65,8 @@ def plot(df, title):
         layout=go.Layout(
             title=f"{title}",
             xaxis=dict(showgrid=False, automargin=True),
-            yaxis=dict(showgrid=False, tick0=0),
-            height=600
+            yaxis=dict(showgrid=False, tick0=0, dtick=1),
+            # height=600
         ),
     )
 
