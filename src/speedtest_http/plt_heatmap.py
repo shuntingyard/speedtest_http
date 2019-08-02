@@ -48,26 +48,28 @@ def plot(df, title):
                 else f"{round(hval, 2)} Mbit/s"
             )
 
-    graph = dict(
-        data=[
-            go.Heatmap(
-                x=corr.columns,
-                y=corr.index,
-                z=corr.values,
-                text=hovertext,
-                hoverinfo=("text"),
-                colorscale="blues",
-                zsmooth=False,
-            )
-        ],
-        # TODO Graph width/ height: plotly only accepts px values so far,
-        #      so set these with care and watch out for API improvements.
-        layout=go.Layout(
-            title=f"{title}",
-            xaxis=dict(showgrid=False, automargin=True),
-            yaxis=dict(showgrid=False, tick0=0, dtick=1),
-            # height=600
-        ),
+    # make the graph
+    data = [
+        go.Heatmap(
+            x=corr.columns,
+            y=corr.index,
+            z=corr.values,
+            # text=hovertext,
+            # hoverinfo=("text"),
+            colorscale="blues",
+            zsmooth="best",
+        )
+    ]
+
+    layout = go.Layout(
+        title=title,
+        width=768,
+        height=768,
+        autosize=False,
+        xaxis=dict(showgrid=False, automargin=True),
+        yaxis=dict(showgrid=False, tick0=0, dtick=1),
     )
 
-    return json.dumps(graph, cls=plotly.utils.PlotlyJSONEncoder)
+    fig = go.Figure(data=data, layout=layout)
+
+    return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

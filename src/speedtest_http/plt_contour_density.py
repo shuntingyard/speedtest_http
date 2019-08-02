@@ -56,17 +56,26 @@ def plot(df, title, colorscale=None):
     p3 = pd.pivot_table(
         df, index="Speed", columns="Time", values="Density", aggfunc=np.sum
     )
-    print(p3)
+    # print(p3)
 
     # make the graph
-    data = [go.Contour(z=p3, line_smoothing=0, contours_coloring="heatmap", colorscale=colorscale)]
+    data = [
+        go.Contour(
+            z=p3,
+            line_smoothing=0,
+            contours_coloring="heatmap",
+            colorscale=colorscale,
+        )
+    ]
 
     layout = go.Layout(
         title=title,
         width=768,
         height=768,
         autosize=False,
-        xaxis=dict(title="days (ordinal)", tick0=0, dtick=1, showticklabels=False),
+        xaxis=dict(
+            title="days (ordinal)", tick0=0, dtick=1, showticklabels=False
+        ),
         yaxis=dict(title="speed (Mbit/s)", showgrid=False),
     )
 
